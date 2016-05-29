@@ -1,11 +1,14 @@
-<!doctype=html>
-<html>
-	<head>
-	<meta charset="utf-8" />
-	<title>food!!!!!!</title>
-	</head>
-	<body>
-	{% block conent %}
-	{% endblock %}
-	</body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<ul>
+  {% for post in post_list %}
+    <li>
+      <a href = "{% url "blog:post_detail" post.pk %}">
+       {{post.title}}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
