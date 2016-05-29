@@ -9,6 +9,10 @@
 {{ post.content }}
 <hr/>
 
+{% for comment in comment_list %}
+{{comment.content}}
+<br/>
+{% endfor %}
 
 <a href={% url "blog:index" %}>글목록으로</a>
 <br/>

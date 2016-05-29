@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Post
+from django.shortcuts import render, redirect
+from .models import Post, Comment
 from blog.forms import CommentForm
 
 def index(request):
@@ -8,16 +8,19 @@ def index(request):
 
 def post_detail(request, pk):
 	post = Post.objects.get(pk=pk)
-	return render(request, 'blog/post_detail.html', {'post':post,})
+	comment_list = Comment.objects.all().filter(post=post)
+	return render(request, 'blog/post_detail.html', {'post':post, 'comment_list':comment_list})
 
 def comment_new(request, pk):
+	post = Post.objects.get(pk=pk)
 	if request.method == 'POST':
 		form = CommentForm(request.POST)
 		if form.is_valid():
 			comment = form.save(commit=False)
-			comment.post = Post.object.get(pk=pk)
+			comment.post = Post.objects.get(pk=pk)
 			comment.save()
 			return redirect('blog:post_detail', pk)
 	else:
 		form = CommentForm()
 	return render(request, 'blog/comment_form.html', {'form':form,})
+
