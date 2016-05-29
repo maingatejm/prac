@@ -3,13 +3,13 @@
 {% block content %}
 <ul>
   {% for post in post_list %}
-    <li>
+ 
       <a href = "{% url "blog:post_detail" post.pk %}">
        {{post.title}}
        <br/>
-       <img src = "{{post.photo.url}}" />
+       <img src = "{{post.photo.url}}" height ='100'>
       </a>
-    </li>
+
   {% endfor %}
 </ul>
 
