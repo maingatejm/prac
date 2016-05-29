@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment
 from blog.forms import CommentForm
+from django.contrib import messages
 
 def index(request):
 	post_list=Post.objects.all()
@@ -19,6 +20,7 @@ def comment_new(request, pk):
 			comment = form.save(commit=False)
 			comment.post = Post.objects.get(pk=pk)
 			comment.save()
+			messages.info(request, '댓글이 등록되었습니다.')
 			return redirect('blog:post_detail', pk)
 	else:
 		form = CommentForm()
