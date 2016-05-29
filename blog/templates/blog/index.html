@@ -6,6 +6,8 @@
     <li>
       <a href = "{% url "blog:post_detail" post.pk %}">
        {{post.title}}
+       <br/>
+       <img src = "{{post.photo.url}}" />
       </a>
     </li>
   {% endfor %}
